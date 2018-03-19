@@ -1,0 +1,3 @@
+SELECT * 
+FROM politicians
+WHERE party = 'R' AND grade_current >= 9 AND grade_current <= 11;

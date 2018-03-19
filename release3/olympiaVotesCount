@@ -1,0 +1,6 @@
+SELECT COUNT(v.politicianId) AS totalVote, p.name
+FROM politicians AS p
+JOIN votes AS v
+	ON p.id = v.politicianId
+	WHERE p.name LIKE '%Olympia Snowe%'
+	GROUP BY v.politicianId

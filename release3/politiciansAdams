@@ -1,0 +1,6 @@
+SELECT p.name, COUNT(v.politicianId) AS totalVote
+FROM politicians AS p
+JOIN votes AS v
+	ON p.id = v.politicianId
+	WHERE p.name LIKE '%Adam%'
+	GROUP BY v.politicianId
