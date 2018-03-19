@@ -5,8 +5,7 @@ var db = new sqlite3.Database('./poll.db');
 
 function politiciansPartyR(){
     db.serialize(function(){
-        db.each(`SELECT * FROM politicians WHERE party = 'R' AND grade_current >= 9 AND grade_current <= 11;`, function(err, row) {
-
+        db.each(`SELECT name,party,grade_current FROM politicians WHERE party = 'R' AND grade_current >= 9 AND grade_current <= 11;`, function(err, row) {
             console.log(row)
         });
     });
@@ -44,8 +43,6 @@ function olympiaVoters(){
     })
     db.close();
 }
-
-
 
 politiciansPartyR()
 olympiaVotesCount()
