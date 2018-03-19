@@ -69,10 +69,20 @@ class Files {
         db.close();
     }
 
-    static insert(tableName, name, party, location, grade_current) {
-        let insertData = `INSERT INTO ${tableName} 
+    static insert(tableName, param1, param2, param3, param4) {
+        if (tableName === 'Politicians') {
+            let insertData = `INSERT INTO ${tableName} 
                           VALUES (NULL, ?, ?, ?, ?);`;
-        db.run(insertData, name, party, location, grade_current);
+            db.run(insertData, param1, param2, param3, param4);
+        } else if (tableName === 'Voters') {
+            let insertData = `INSERT INTO ${tableName} 
+                          VALUES (NULL, ?, ?, ?, ?);`;
+            db.run(insertData, param1, param2, param3, param4);
+        } else if (tableName === 'Votes') {
+            let insertData = `INSERT INTO ${tableName} 
+                          VALUES (NULL, ?, ?);`;
+            db.run(insertData, param1, param2);
+        } 
     }
 
     static update(tableName, setName, setValue, whereName, whereValue) {
