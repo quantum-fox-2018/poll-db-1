@@ -56,7 +56,7 @@ class Inputdb {
         arrVotes.push(tmp);
       }
 
-      for(let j = 1; j < arrVotes.length; j++){
+      for(let j = 0; j < arrVotes.length; j++){
         db.run(`INSERT INTO votes (voterId, politicianId) VALUES ("${arrVotes[j][0]}", "${arrVotes[j][1]}")`)
       }
 
