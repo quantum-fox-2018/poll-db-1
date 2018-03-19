@@ -1,0 +1,4 @@
+SELECT name,party,gradeCurrent
+FROM Politicians
+WHERE party = 'R' AND
+	gradeCurrent BETWEEN 9 AND 11

@@ -1,0 +1,5 @@
+SELECT COUNT(*) AS 'Olympia Snowe Votes'
+FROM Politicians
+JOIN Votes
+	ON Politicians.politicianId = Votes.politicianId
+		WHERE Politicians.name LIKE '%Olympia Snowe%'

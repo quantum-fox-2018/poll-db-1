@@ -1,0 +1,18 @@
+-- negara bagian dengan votes terbanyak, list orang yang votes disini
+SELECT Loc.location AS Location,
+	Loc.TotalVote,
+	Voters.firstName||' '||Voters.lastName AS VoterName
+FROM (SELECT Politicians.location,
+	 COUNT(*) AS TotalVote
+	 FROM Politicians
+	 JOIN Votes
+		ON Politicians.politicianId = Votes.politicianId
+	 GROUP BY Politicians.location
+	 ORDER BY TotalVote DESC
+	 LIMIT 1) AS Loc
+JOIN Politicians
+	ON Politicians.location = Loc.location
+JOIN Votes
+	ON Votes.politicianId = Politicians.politicianId
+JOIN Voters
+	ON Voters.votersId = Votes.voterId

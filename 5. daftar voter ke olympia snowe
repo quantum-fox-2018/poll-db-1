@@ -1,0 +1,10 @@
+SELECT Voters.firstName,
+	Voters.lastName,
+	Voters.gender,
+	Voters.age
+FROM Votes
+JOIN Politicians
+	ON Politicians.politicianId = Votes.politicianId
+JOIN Voters
+	ON Voters.votersId = Votes.voterId
+WHERE Politicians.name LIKE '%Olympia Snowe%'

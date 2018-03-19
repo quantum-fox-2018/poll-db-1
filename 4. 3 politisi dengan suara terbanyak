@@ -1,0 +1,10 @@
+SELECT COUNT(*) AS totalVote,
+	Politicians.name,
+	Politicians.party,
+	Politicians.location
+FROM Politicians
+JOIN Votes
+	ON Politicians.politicianId = Votes.politicianId
+GROUP BY Politicians.name
+ORDER BY totalVote DESC
+LIMIT 3
