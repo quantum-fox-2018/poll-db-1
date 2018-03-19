@@ -17,9 +17,10 @@ class Files {
         });
     }
 
+    // Release 1
     static politicians() {
-        db.serialize(() => {
-            Files.readFiles(politiciansFile, (data) => {
+        Files.readFiles(politiciansFile, (data) => {
+            db.serialize(() => {
                 for (let i = 1; i < data.length; i++) {
                     let name = data[i][0];
                     let party = data[i][1];
@@ -36,8 +37,8 @@ class Files {
     }
 
     static voters() {
-        db.serialize(() => {
-            Files.readFiles(votersFile, (data) => {
+        Files.readFiles(votersFile, (data) => {
+            db.serialize(() => {
                 for (let i = 1; i < data.length; i++) {
                     let first_name = data[i][0];
                     let last_name = data[i][1];
@@ -54,8 +55,8 @@ class Files {
     }
 
     static votes() {
-        db.serialize(() => {
-            Files.readFiles(votesFile, (data) => {
+        Files.readFiles(votesFile, (data) => {
+            db.serialize(() => {
                 for (let i = 1; i < data.length; i++) {
                     let voterId = data[i][0];
                     let politicianId = data[i][1];
@@ -69,6 +70,7 @@ class Files {
         db.close();
     }
 
+    // Release 2
     static insert(tableName, param1, param2, param3, param4) {
         if (tableName === 'Politicians') {
             let insertData = `INSERT INTO ${tableName} 
@@ -82,7 +84,7 @@ class Files {
             let insertData = `INSERT INTO ${tableName} 
                           VALUES (NULL, ?, ?);`;
             db.run(insertData, param1, param2);
-        } 
+        }
     }
 
     static update(tableName, setName, setValue, whereName, whereValue) {
@@ -98,3 +100,41 @@ class Files {
         db.run(deleteData);
     }
 }
+
+// Files.politicians();
+// Files.voters();
+// Files.votes();
+
+/*
+- Release 3
+1. SELECT name, party, grade_current 
+   FROM Politicians 
+   WHERE party = 'R' 
+   AND grade_current > 9 
+   AND grade_current < 11;
+
+2. SELECT name, COUNT(*) AS totalVote 
+   FROM Politicians 
+   JOIN Votes 
+   ON Politicians.id = Votes.politicianId 
+   WHERE Politicians.name = 'Olympia Snowe';
+
+3. SELECT name, (SELECT COUNT(politicianId) FROM Votes WHERE Politicians.id = Votes.politicianId) 
+   AS totalVote 
+   FROM Politicians 
+   WHERE Politicians.name 
+   LIKE 'adam %';
+
+4. SELECT name, (SELECT COUNT(politicianId) FROM Votes WHERE Politicians.id = Votes.politicianId)
+   AS totalVote
+   FROM Politicians
+   ORDER BY totalVote DESC 
+   LIMIT 3;
+
+5. SELECT first_name, last_name, gender, age 
+   FROM Voters 
+   LEFT JOIN Votes ON Voters.id = votes.voterId 
+   LEFT JOIN Politicians 
+   ON Politicians.id = Votes.politicianId 
+   WHERE Politicians.name = 'Olympia Snowe';
+*/
