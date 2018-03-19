@@ -1,79 +1,103 @@
 const fs = require('fs');
 
+
+//============================================ RELEASE 2
 var sqlite3 = require('sqlite3').verbose()
 var db = new sqlite3.Database('./Pool.db')
 
-db.serialize(function(){
+class Insert{
+  static insertPolitican(id, name, Party, Loc, Grade_Current){
+    var query = `INSERT INTO KANDIDAT(Kandidat_id, name, Party, Location, Grade_Current)
+                    VALUES (null, ?, ?, ?, ?)`
+    db.run(query,`${name}`, `${Party}`, `${Loc}`, `${Grade_Current}`)
+    db.close()
+  }
 
-  fs.readFile('./politicians.csv','utf8',(err, dataPoliticians) =>{
-      if(err){
-        console.log(err)
-      }
-      else {
+  static insertVoter(Voter_id, First_name, Last_name, Gender, Age){
+    var query = `INSERT INTO KANDIDAT(Voter_id, First_name, Last_name, Gender, Age)
+                    VALUES (null, ?, ?, ?, ?)`
+    db.run(query,`${First_name}`, `${Last_name}`, `${Gender}`, `${Age}`)
+    db.close()
+  }
 
-        let arrPoliticians = []
-        let Politicians = dataPoliticians.split('\n')
-        for(let i=0; i<Politicians.length-1; i++){
-          arrPoliticians.push(Politicians[i].split(','))
-        }
-        // console.log(arrPoliticians)
+  static insertVotes(Vote_Voter_id, Kandidat_id, Voter_id){
+    var query = `INSERT INTO KANDIDAT(Vote_Voter_id, Kandidat_id, Voter_id)
+                    VALUES (null, ?, ?)`
+    db.run(query,`${Kandidat_id}`, `${Voter_id}`)
+    db.close()
+  }
 
-        for(let j=1; j<arrPoliticians.length; j++){
-          let arrNilai = arrPoliticians[j]
-          var query = `INSERT INTO KANDIDAT(Kandidat_id, name, Party, Location, Grade_Current)
-                        VALUES (null, ?, ?, ?, ?)`
-          db.run(query,`${arrNilai[0]}`, `${arrNilai[1]}`, `${arrNilai[2]}`, `${arrNilai[3]}`)
-        }
-      }
+}
+// Insert.insertPolitican('81', 'yasir', 'R', 'NY', 8.3423424)
 
-      db.close()
-  })
+class Update{
+  static updatePolitican(par_id, par_name, par_party, loc, grade){
+    var query = `UPDATE KANDIDAT  SET   name = '${par_name}',
+                                        Party = '${par_party}',
+                                        Location = '${loc}',
+                                        Grade_Current = ${grade}
+                                  WHERE Kandidat_id = ${par_id};`
+    db.run(query)
+    db.close()
+  }
 
-  fs.readFile('./voters.csv','utf8',(err, dataVoters) =>{
-      if(err){
-        console.log(err)
-      }
-      else {
+  static updateVoter(par_id, par_fname, par_lname, par_gender, par_age){
+    var query = `UPDATE VOTER SET  Frist_name = '${par_fname}',
+                                    Last_name = '${par_lname}',
+                                    Gender = '${par_gender}',
+                                    Age = ${par_age}
+                              WHERE Voter_id = ${par_id};`
+    db.run(query)
+    db.close()
+  }
 
-        let arrVoters = []
-        let Voters = dataVoters.split('\n')
-        for(let i=0; i<Voters.length-1; i++){
-          arrVoters.push(Voters[i].split(','))
-        }
-        // console.log(arrVoters)
+  static updateVotes(par_VVid, par_Kid, par_Vid){
+    var query = `UPDATE VOTE_VOTER  SET Kandidat_id = '${par_Kid}',
+                                        Voter_id = '${par_Vid}',
+                                  WHERE Vote_Voter_id = ${par_VVid};`
+    db.run(query)
+    db.close()
+  }
 
-        for(let j=1; j<arrVoters.length; j++){
-          let arrNilai = arrVoters[j]
-          var query = `INSERT INTO VOTER(Voter_id, First_name, Last_name, Gender, Age)
-                        VALUES (null, ?, ?, ?, ?)`
-          db.run(query,`${arrNilai[0]}`, `${arrNilai[1]}`, `${arrNilai[2]}`, `${arrNilai[3]}`)
-        }
-      }
-  db.close()
-  })
+}
+// Update.updatePolitican(61,'maulana', 'D', 'NY', 9.00000)
 
-  fs.readFile('./votes.csv','utf8',(err, dataVotes) =>{
-      if(err){
-        console.log(err)
-      }
-      else {
+class Delete{
+  static deletePolitican(par_id){
+    var query = `DELETE FROM KANDIDAT WHERE Kandidat_id = ${par_id};`
+    db.run(query)
+    db.close()
+  }
 
-        let arrVotes = []
-        let Votes = dataVotes.split('\n')
-        for(let i=0; i<Votes.length-1; i++){
-          arrVotes.push(Votes[i].split(','))
-        }
-        // console.log(arrVotes)
+  static deleteVoter(par_id){
+    var query = `DELETE FROM VOTER WHERE Voter_id = ${par_id};`
+    db.run(query)
+    db.close()
+  }
 
-        for(let j=1; j<arrVotes.length; j++){
-          let arrNilai = arrVotes[j]
-          var query = `INSERT INTO VOTE_VOTER(Vote_Voter_id, Kandidat_id, Voter_id)
-                        VALUES (null, ?, ?)`
-          db.run(query,`${arrNilai[0]}`, `${arrNilai[1]}`)
-        }
-      }
+  static deleteVotes(par_VVid, par_Kid, par_Vid){
+    var query = `DELETE FROM VOTE_VOTER  WHERE Vote_Voter_id = ${par_VVid};`
+    db.run(query)
+    db.close()
+  }
 
-      db.close()
-  })
+}
+// Delete.deletePolitican(81)
 
-})
+
+//============================================ RELEASE 3
+class Select{
+  static PartyRgrad911(){ //NO 1
+    db.all(`SELECT name, party, grade_current
+            FROM kandidat
+            WHERE party = ?
+            AND grade_current between ? and ?;`,['R', 9, 11], (err, dataPartyR) => {
+            if(err) throw err;
+            else {
+              console.log(dataPartyR)
+            }
+          })
+    // db.close()
+  }
+}
+Select.PartyRgrad911()
