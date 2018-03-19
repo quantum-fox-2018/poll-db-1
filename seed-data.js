@@ -22,26 +22,26 @@ const db = new sqlite3.Database('./database.db');
 // //console.log(VotersFile);
 // })
 
-fs.readFile('./votes.csv', 'utf8',(err, data) => {
-let votes = data
-if (err) throw err;
-//console.log(err);
-let votesFile=[];
-  let dataVotes = votes.split("\n")
-    for (var i = 1; i <dataVotes.length-1; i++) {
-        validVotes=dataVotes[i].split(",")
-        votesFile.push(validVotes)
-    }
-    for (var v = 0; v < votesFile.length; v++) {
-          let value = votesFile[v]
-           var query = `INSERT INTO Votes
-                         (votes_id,Politicians_id,voters_id)
-                         VALUES(null,?,?)`
-                      db.run(query,`${value[0]}`,`${value[1]}`)
-        }
-
-//console.log(votesFile);
-})
+// fs.readFile('./votes.csv', 'utf8',(err, data) => {
+// let votes = data
+// if (err) throw err;
+// //console.log(err);
+// let votesFile=[];
+//   let dataVotes = votes.split("\n")
+//     for (var i = 1; i <dataVotes.length-1; i++) {
+//         validVotes=dataVotes[i].split(",")
+//         votesFile.push(validVotes)
+//     }
+//     for (var v = 0; v < votesFile.length; v++) {
+//           let value = votesFile[v]
+//            var query = `INSERT INTO Votes
+//                          (votes_id,Politicians_id,voters_id)
+//                          VALUES(null,?,?)`
+//                       db.run(query,`${value[0]}`,`${value[1]}`)
+//         }
+//
+// //console.log(votesFile);
+// })
 
 
 
@@ -64,3 +64,40 @@ let votesFile=[];
 //       }
 //
 // })
+class insert{
+
+ static inserPoliticians(name, party, location, grade_current){
+   db.run('INSERT INTO Politicians VALUES (NULL, ?, ?, ?, ?)', name, party, location, grade_current);
+   console.log('new Politician data has been inserted');
+ }
+
+ static insertVoter(first_name, last_name, gender, age){
+   db.run('INSERT INTO Voters VALUES (NULL, ?, ?, ?, ?)', first_name, last_name, gender, age)
+    console.log('new voters data has been inserted')
+ }
+
+}
+
+//insert.inserPoliticians('faldhi','PSP','CNR','9.000002')
+//insert.insertVoter('Andi','Dona','L','25')
+
+
+
+class update{
+  static updatePoliticians( name, party, address, grade_current, Politicians_id){
+    db.run(`UPDATE Politicians SET name = ?, party = ?, address = ?, grade_current = ? WHERE Politicians_id = ?`, name, party, address, grade_current, Politicians_id);
+    console.log('data table ');
+  }
+}
+
+//update.updatePoliticians('ahmad dani','PMR','cinere','008.999',21)
+
+class Delete{
+   static deleteVoter(voters_id){
+     db.run(`DELETE FROM Voters WHERE voters_id = ?`, voters_id);
+     console.log('voters hasbeen deleted');
+   }
+}
+
+
+//Delete.deleteVoter(90)
