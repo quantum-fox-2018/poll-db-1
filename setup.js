@@ -7,14 +7,11 @@ let db = new sqlite3.Database('./database.db', (err) => {
   console.log('Connected to the in-memory SQlite database.');
 });
 
-db.run(`CREATE TABLE IF NOT EXISTS Politicians
-          (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(50),
-          party VARCHAR(50), location VARCHAR(2),
-          grade_current VARCHAR(25))`)
+db.run("CREATE TABLE IF NOT EXISTS Politicians (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(50), party VARCHAR(50), location VARCHAR(2), grade_current FLOAT(15))")
 
 db.run(`CREATE TABLE IF NOT EXISTS Voters
         (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name VARCHAR(50),
-        last_name VARCHAR(50), gender VARCHAR(2), age INT(3))
+        last_name VARCHAR(50), gender VARCHAR(2), age VARCHAR(3))
         `)
 
 db.run(`CREATE TABLE IF NOT EXISTS Votes

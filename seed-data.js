@@ -53,8 +53,10 @@ function deleteData() {
       WHERE id = 2`)
 }
 
+db.run(`SELECT * FROM Politicians WHERE party = 'R' AND grade_current BETWEEN 9 AND 11`)
+
 // updateData('asdsa', 'werwew', 'm', '23')
-deleteData()
+// deleteData()
 // showVotesTable()
-// showPoliticianTable()
+showPoliticianTable()
 // showVotersTable()
