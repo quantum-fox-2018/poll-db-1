@@ -1,0 +1,48 @@
+INSERT QUERY
+INSERT INTO Voters (id,first_name,last_name,gender,age) VALUES (NULL,'Muhammad','Ramadiansyah','male',23);
+
+UPDATE QUERY
+UPDATE Voters SET first_name = "Muh",last_name = "Rama" WHERE ID = 151;
+
+DELETE QUERY
+DELETE FROM Voters WHERE ID = 151;
+
+RELEASE 3 Nomor 1 : tampilkan nama politisi, partai, dan grade current;
+
+SELECT name,party,grade_current FROM Politicians
+WHERE grade_current >=9 AND grade_current <= 11
+  AND party = 'R'
+ORDER BY grade_current ASC;
+
+RELEASE 3 Nomor 2 : Hitung Jumlah Vote politisi bernama Oympia Snowe
+
+SELECT COUNT(*) AS totalVote, name FROM Politicians
+LEFT JOIN Votes ON Politicians.id = Votes.politiciansID
+WHERE name = 'Olympia Snowe';
+
+RELEASE 3 Nomor 3 : Nama Politicians yang mengandung Adam
+
+SELECT name, (SELECT COUNT(politiciansId) FROM Votes
+WHERE politiciansId = Politicians.id) as totalVote
+FROM Politicians
+WHERE name LIKE 'Adam %';
+
+RELEASE 3 Nomor 4  : Politisi beserta nama partai terbanyak
+
+SELECT (SELECT COUNT(politiciansId) FROM Votes
+WHERE politiciansId = Politicians.id) AS totalVote,name,party,location FROM Politicians
+ORDER BY totalVote DESC LIMIT 3;
+
+RELEASE 3 Nomor 5 : tampilkan politisi dan votersnya yang bernama Olympia Snowe
+
+SELECT (SELECT first_name from Voters WHERE votersId = Voters.id),
+(SELECT last_name from Voters WHERE votersId = Voters.id),
+(SELECT gender from Voters WHERE votersId = Voters.id),
+(SELECT age from Voters WHERE votersId = Voters.id) FROM Politicians
+LEFT JOIN Votes ON Politicians.id = Votes.politiciansId
+WHERE name = 'Olympia Snowe';
+
+SELECT first_name,last_name,gender,age FROM Voters
+LEFT JOIN Votes ON Voters.id = votersId
+WHERE politiciansId = (SELECT Politicians.id FROM Politicians
+WHERE name = 'Olympia Snowe');
