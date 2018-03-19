@@ -28,7 +28,6 @@ class Politicians {
                 );
         }
       })
-      db.close();
     })
   }
 
@@ -37,7 +36,6 @@ class Politicians {
             VALUES (NULL, ?, ?, ?, ?);`,
             [name, party, location, grade_current]
           );
-    db.close();
     console.log('Success!');
   }
 
@@ -47,7 +45,6 @@ class Politicians {
             WHERE id = ?;`,
             [name, party, location, grade_current, id]
           );
-    db.close();
   }
 
   static deleteDataDB(id) {
@@ -55,7 +52,6 @@ class Politicians {
             WHERE id = ?`,
             [id]
           );
-  db.close();
   }
 }
 
@@ -106,7 +102,6 @@ class Voters {
             WHERE id = ?`,
             [id]
           );
-  db.close();
   }
 }
 
@@ -133,7 +128,6 @@ class Votes {
                 );
         }
       })
-      db.close();
     })
   }
 
@@ -142,7 +136,6 @@ class Votes {
             VALUES (NULL, ?, ?);`,
             [voterId, politicianId]
           );
-    db.close();
     console.log('Success!');
   }
 
@@ -152,7 +145,6 @@ class Votes {
             WHERE id = ?;`,
             [voterId, politicianId, id]
           );
-    db.close();
   }
 
   static deleteDataDB(id) {
@@ -160,7 +152,6 @@ class Votes {
             WHERE id = ?`,
             [id]
           );
-  db.close();
   }
 }
 
