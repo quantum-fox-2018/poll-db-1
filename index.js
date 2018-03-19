@@ -73,3 +73,7 @@ else if(syntax == 'delete'){
         console.log('node index.js delete <table_name> <id>')
     }
 }
+
+else if(syntax == 'release3'){
+    Select.release3()
+}
