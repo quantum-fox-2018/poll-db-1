@@ -53,13 +53,23 @@ class DataImport {
   }
 }
 
+<<<<<<< HEAD
 DataImport.dataCandidates();
 DataImport.dataVoters();
 DataImport.dataVotes();
 
+=======
+>>>>>>> 2a7363629c978ce5864071dce3ea8bcfb7d45ad0
 db.close((err) => {
   if (err) {
     return console.error(err.message);
   }
   console.log('Close the database connection.');
 });
+<<<<<<< HEAD
+=======
+
+// DataImport.dataCandidates();
+// DataImport.dataVoters();
+// dataImport.dataVotes;
+>>>>>>> 2a7363629c978ce5864071dce3ea8bcfb7d45ad0

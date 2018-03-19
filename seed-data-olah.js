@@ -24,9 +24,15 @@ class InsertData {
           null, ?, ?)`, valueData1, valueData2);
   }
 }
+<<<<<<< HEAD
 // InsertData.insertDataCandidates('David Joshua', 'R', 'LA', 9.99999999);
 // InsertData.insertDataVoters('David', 'Joshua', 'male', 30);
 // InsertData.insertDataVotes(21, 151);
+=======
+InsertData.insertDataCandidates('David Joshua', 'R', 'LA', 9.99999999);
+InsertData.insertDataVoters('David', 'Joshua', 'male', 30);
+InsertData.insertDataVotes(21, 151);
+>>>>>>> 2a7363629c978ce5864071dce3ea8bcfb7d45ad0
 
 class UpdateData {
   static updateDataCandidates(valueData1, valueData2, valueData3, valueData4, candidate_id) {
@@ -50,6 +56,7 @@ class UpdateData {
 
   }
 }
+<<<<<<< HEAD
 // UpdateData.updateDataCandidates('David Joshua', 'R', 'LA', 9.99999999, 1);
 
 
@@ -123,6 +130,22 @@ db.all(`SELECT first_name,last_name,gender,age,candidate_id FROM Voters
     console.log(dataRows);
   }
 });
+=======
+UpdateData.updateDataCandidates('David Joshua', 'R', 'LA', 9.99999999, 1);
+
+class DeleteData {
+  static deleteDataCandidate(candidate_id){
+   db.run(`DELETE FROM Candidates WHERE candidate_id = ${candidate_id};`);
+  }
+  static deleteDataVoters(voter_id){
+    db.run(`DELETE FROM Voters WHERE voter_id = ${voter_id};`);
+  }
+  static deleteVotes(vote_id){
+    db.run(`DELETE FROM Votes WHERE vote_id = ${vote_id};`);
+  }
+}
+DeleteData.deleteDataCandidate(21);
+>>>>>>> 2a7363629c978ce5864071dce3ea8bcfb7d45ad0
 
 db.close((err) => {
   if (err) {
