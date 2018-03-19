@@ -11,15 +11,7 @@ db.serialize(function() {
 // db.run("CREATE TABLE Votes (votes_id INTEGER PRIMARY KEY AUTOINCREMENT,voters_id VARCHAR(5),Politicians_id VARCHAR(5))");
 // })
 
-function insertDataPolitician(callback){
-    readFilePolitician(function(dataPoliticians){
-        newDataPoliticians = dataPoliticians.slice(1, dataPoliticians.length);
-        for(let indexRow = 0; indexRow<newDataPoliticians.length; indexRow++){
-            let arrRow = [];
-            arrRow = newDataPoliticians[indexRow].split(',');
-            db.run('INSERT INTO Politicians VALUES (NULL, ?, ?, ?, ?)', arrRow[0], arrRow[1], arrRow[2], arrRow[3])
-        }
-    })
+
 }
 
 db.close()
