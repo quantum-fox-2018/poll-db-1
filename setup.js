@@ -4,7 +4,6 @@ const db = new sqlite3.Database('database.db');
 
 db.serialize(function(){
 
-  CREATE TABLE
 
   let createTablePoliticiansQuery = `CREATE TABLE politicians
               (id INTEGER PRIMARY KEY AUTOINCREMENT,

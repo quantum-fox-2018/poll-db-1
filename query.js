@@ -31,21 +31,9 @@ function updateData(tableName, id, column, value){
   })
 }
 
-
 //driver code
 // insertData("politicians", ["Andy", "B","JKT", 8.3])
 // insertData("votes", [80, 81])
 // deleteData("politicians", 21)
 // updateData("politicians", 22, "name", "brandon PERINDO")
-updateData("politicians", 22, "grade_current", 600)
-
-
-
-// db.serialize(function(){
-//     // grade_current range
-//     let queryGradeCurrentRange = `SELECT name, party, grade_current FROM politicians WHERE party = 'R' AND grade_current BETWEEN 9 AND 11`
-//     db.all(queryGradeCurrentRange)
-//
-//     //Olympia Snowe
-//     let queryOlympiaSnow =
-// });
+// updateData("politicians", 22, "grade_current", 600)

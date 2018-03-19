@@ -21,12 +21,12 @@ db.serialize(function(){
     for (var i = 0; i < politicians.length; i++) {
           db.run(insertPoliticiansQuery, politicians[i].name, politicians[i].party, politicians[i].location, politicians[i].grade_current)
     }
+    db.close()
     })
 
   readData('./voters.csv', function(data){
     let voters = []
     data = data.split('\n')
-    //first_name,last_name,gender,age
     for (let i = 1; i < data.length; i++) {
       let temp = data[i].split(",")
       if (temp[0]) {
@@ -40,6 +40,7 @@ db.serialize(function(){
     for (let i = 0; i < voters.length; i++) {
       db.run(insertVotersQuery, voters[i].firstName, voters[i].lastName, voters[i].gender, voters[i].age )
     }
+    db.close()
   })
 
   readData('./votes.csv', function(data){
@@ -59,6 +60,7 @@ db.serialize(function(){
     for (let i = 0; i < votes.length; i++) {
       db.run(insertVotesQuery, votes[i].voterId, votes[i].politicianId)
     }
+    db.close()
   })
 })
 
