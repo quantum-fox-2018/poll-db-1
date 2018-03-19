@@ -83,15 +83,15 @@ function addVotes(votesData) {
   });
 }
 
-function partyR(data) {
-  db.serialize(function() {
-    db.run(
-      'SELECT * FROM politicians WHERE party = 'R' AND grade_current BETWEEN 9 AND 11;'
-    );
-  });
-  db.close();
-}
+// SELECT * FROM politicians WHERE party = 'R' AND grade_current BETWEEN 9 AND 11;
 
+// SELECT COUNT(*) AS 'totalVote', politicians.name FROM politicians LEFT JOIN votes ON politician_id = politicians.id WHERE votes.politician_id = 17;
+
+// SELECT name, (SELECT COUNT(*) FROM votes WHERE votes.politician_id = politicians.id) AS 'totalVote' FROM politicians WHERE name LIKE 'Adam %';
+
+// SELECT (SELECT COUNT(*) FROM votes WHERE votes.politician_id = politicians.id) AS 'totalVotes', name, party, location FROM politicians ORDER BY totalVotes Desc LIMIT 3;
+
+// SELECT voters.first_name, voters.last_name, voters.gender, voters.age FROM votes JOIN voters ON voters.id = votes.voter_id WHERE politician_id = (SELECT id FROM politicians WHERE name = 'Olympia Snowe'); 
 getPoliticians('politicians.csv', addPoliticians);
 getVoters('voters.csv', addVoters);
 getVotes('votes.csv', addVotes);
