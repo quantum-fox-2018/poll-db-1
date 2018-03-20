@@ -1,4 +1,5 @@
 const fs = require('fs');
+const Controller = require('../controller')
 
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('./poll.db');
@@ -8,9 +9,9 @@ class Model {
     static addPolitician(name,party,location,grade_current){
         db.run("INSERT INTO politicians VALUES (?,?,?,?,?)", [null,name,party,location,grade_current], function(err){
             if(err) return console.log(err);
-            console.log(`Berhasil menambahkan ${name}`)
+            // console.log(`Berhasil menambahkan ${name}`)
+
         })
-        db.close();
     }
 
     static editPolitician(id,name,party,location,grade_current){
@@ -18,7 +19,6 @@ class Model {
             if(err) return console.log(err);
             console.log(`ID ${id} berhasil terupdate`)
         })
-        db.close();
     }
 
     static deletePolitician(id){
@@ -26,7 +26,6 @@ class Model {
             if(err) return console.log(err);
             console.log(`Anda menghapus data ${id}`)
         })
-        db.close();
     }
 
     static addVoter(first_name,last_name,gender,age){
@@ -34,7 +33,6 @@ class Model {
             if(err) return console.log(err)
             console.log(`Berhasil menambahkan ${first_name} ${last_name}`)
         })
-        db.close();
     }
 
     static editVoter(id,first_name,last_name,gender,age){
@@ -42,7 +40,6 @@ class Model {
             if(err) return console.log(err);
             console.log(`ID ${id} berhasil terupdate`)
         })
-        db.close();
     }
     
     static deleteVoter(id){
@@ -50,7 +47,6 @@ class Model {
             if(err) return console.log(err)
             console.log(`Anda menghapus data ${id}`)
         })
-        db.close();
     }
 
     static addVote(voterID,politicianID){
@@ -58,7 +54,6 @@ class Model {
             if(err) return console.log(err)
             console.log(`Berhasil voting politisi ke ${politicianID}`)
         })
-        db.close();
     }
 
     static editVote(id,voterID,politicianID){
@@ -66,7 +61,6 @@ class Model {
             if(err) return console.log(err)
             console.log(`ID ${id} berhasil terupdate`)
         })
-        db.close();
     }
 
     static deleteVote(id,voterID,politicianID){
@@ -74,7 +68,6 @@ class Model {
             if(err) return console.log(err)
             console.log(`Anda menghapus data ke ${id}`)
         })
-        db.close();
     }
 }
 
