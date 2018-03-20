@@ -12,8 +12,16 @@ class Controller {
       Views.ifUndefined()
     } else if(this.command=='help'){
       Views.help()
+    } else if(this.command=='read'){
+      Model.readData(this.content,Views.readData)
     } else if(this.command=='insert'){
       Model.insertData(this.content,Views.insertData)
+    } else if(this.command=='update'){
+      Model.updateData(this.content,Views.updateData)
+    } else if(this.command=='delete'){
+      Model.deleteData(this.content,Views.deleteData)
+    } else {
+      Views.wrongCommand()
     }
   }
 }
